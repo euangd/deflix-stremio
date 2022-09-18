@@ -56,9 +56,9 @@ func parseConfig(logger *zap.Logger) config {
 
 	// Flags
 	var (
-		bindAddr             = flag.String("bindAddr", "localhost", `Local interface address to bind to. "localhost" only allows access from the local host. "0.0.0.0" binds to all network interfaces.`)
-		port                 = flag.Int("port", 8080, "Port to listen on")
-		baseURL              = flag.String("baseURL", "http://localhost:8080", "Base URL of this service. It's used in a stream URL that's delivered to Stremio and later used to redirect to RealDebrid, AllDebrid and Premiumize. If you enable OAuth2 handling this will also be used for the redirects and to determine whether the state cookie is a secure one or not.")
+		bindAddr             = flag.String("bindAddr", "0.0.0.0", `Local interface address to bind to. "localhost" only allows access from the local host. "0.0.0.0" binds to all network interfaces.`)
+		port                 = flag.Int("port", 5000, "Port to listen on")
+		baseURL              = flag.String("baseURL", "0.0.0.0:5000", "Base URL of this service. It's used in a stream URL that's delivered to Stremio and later used to redirect to RealDebrid, AllDebrid and Premiumize. If you enable OAuth2 handling this will also be used for the redirects and to determine whether the state cookie is a secure one or not.")
 		storagePath          = flag.String("storagePath", "", `Path for storing the data of the persistent DB which stores torrent results. An empty value will lead to 'os.UserCacheDir()+"/deflix-stremio/badger"'.`)
 		maxAgeTorrents       = flag.Duration("maxAgeTorrents", 7*24*time.Hour, "Max age of cache entries for torrents found per IMDb ID. The format must be acceptable by Go's 'time.ParseDuration()', for example \"24h\". Default is 7 days.")
 		cachePath            = flag.String("cachePath", "", `Path for loading persisted caches on startup and persisting the current cache in regular intervals. An empty value will lead to 'os.UserCacheDir()+"/deflix-stremio/cache"'.`)
