@@ -50,9 +50,9 @@ func parseConfig(logger *zap.Logger) config {
 
 	// Flags
 	var (
-		bindAddr             = flag.String("bindAddr", "localhost", `Local interface address to bind to. "localhost" only allows access from the local host. "0.0.0.0" binds to all network interfaces.`)
-		port                 = flag.Int("port", 8080, "Port to listen on")
-		streamURLaddr        = flag.String("streamURLaddr", "http://localhost:8080", "Address to be used in a stream URL that's delivered to Stremio and later used to redirect to , AllDebrid and Premiumize. If you enable OAuth2 handling this will also be used to determine whether the state cookie is a secure one or not.")
+		bindAddr             = flag.String("bindAddr", "https://deflix-egd-stremio.herokuapp.com/", `Local interface address to bind to. "localhost" only allows access from the local host. "0.0.0.0" binds to all network interfaces.`)
+		port                 = flag.Int("port", 443, "Port to listen on")
+		streamURLaddr        = flag.String("streamURLaddr", "https://deflix-egd-stremio.herokuapp.com/:442", "Address to be used in a stream URL that's delivered to Stremio and later used to redirect to , AllDebrid and Premiumize. If you enable OAuth2 handling this will also be used to determine whether the state cookie is a secure one or not.")
 		storagePath          = flag.String("storagePath", "", `Path for storing the data of the persistent DB which stores torrent results. An empty value will lead to 'os.UserCacheDir()+"/deflix-stremio/badger"'.`)
 		maxAgeTorrents       = flag.Duration("maxAgeTorrents", 7*24*time.Hour, "Max age of cache entries for torrents found per IMDb ID. The format must be acceptable by Go's 'time.ParseDuration()', for example \"24h\". Default is 7 days.")
 		cachePath            = flag.String("cachePath", "", `Path for loading persisted caches on startup and persisting the current cache in regular intervals. An empty value will lead to 'os.UserCacheDir()+"/deflix-stremio/cache"'.`)
@@ -67,8 +67,8 @@ func parseConfig(logger *zap.Logger) config {
 		baseURLrd            = flag.String("baseURLrd", "https://api.real-debrid.com", "Base URL for RealDebrid")
 		baseURLad            = flag.String("baseURLad", "https://api.alldebrid.com", "Base URL for AllDebrid")
 		baseURLpm            = flag.String("baseURLpm", "https://www.premiumize.me/api", "Base URL for Premiumize")
-		logLevel             = flag.String("logLevel", "debug", `Log level to show only logs with the given and more severe levels. Can be "debug", "info", "warn", "error".`)
-		logFoundTorrents     = flag.Bool("logFoundTorrents", false, "Set to true to log each single torrent that was found by one of the torrent site clients (with DEBUG level)")
+		logLevel             = flag.String("logLevel", "error", `Log level to show only logs with the given and more severe levels. Can be "debug", "info", "warn", "error".`)
+		logFoundTorrents     = flag.Bool("logFoundTorrents", true, "Set to true to log each single torrent that was found by one of the torrent site clients (with DEBUG level)")
 		rootURL              = flag.String("rootURL", "https://www.deflix.tv", "Redirect target for the root")
 		extraHeadersXD       = flag.String("extraHeadersXD", "", `Additional HTTP request headers to set for requests to RealDebrid, AllDebrid and Premiumize, in a format like "X-Foo: bar", separated by newline characters ("\n")`)
 		socksProxyAddrTPB    = flag.String("socksProxyAddrTPB", "", "SOCKS5 proxy address for accessing TPB, required for accessing TPB via the TOR network (where \"127.0.0.1:9050\" would be typical value)")
